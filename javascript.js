@@ -17,13 +17,11 @@ function getComputerChoice () {
 function getHumanChoice () {        //get the Player's choice
     let humanChoice = prompt("Choose Rock, Paper, or Scissors");
     humanChoice = humanChoice.toLowerCase();  //convert choice to lower case for comparison
-    if (humanChoice === "rock" || humanChoice === "paper" || humanChoice === "scissors") {
-        return humanChoice;             //return player choice if valid
+    while (humanChoice !== "rock" && humanChoice !== "paper" && humanChoice !== "scissors") {  //only proceed when user makes valid input
+        humanChoice = prompt("Invalid input! Please enter Rock, Paper, or Scissors!");
+        humanChoice = humanChoice.toLowerCase();
     }
-    else {
-        return "invalid input";         //return "invalid input" if player does not enter rock, paper, or scissors
-    }
-
+    return humanChoice;
 }
 
 function playRound (humanChoice, computerChoice) {                      //plays one round
