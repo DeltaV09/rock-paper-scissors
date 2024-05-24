@@ -34,10 +34,10 @@ function playGame () {      //play Best of 5 (but ties don't count, so really pl
     }
 
     if (humanScore === 3) {      //declare winner once someone has score of 3         
-        alert("Congratulations! You are the winner!");
+        alert(`Congratulations! You are the winner!  Final score was You: ${humanScore} to Computer: ${computerScore}`);
     }
     else if (computerScore === 3) {
-        alert("Sorry, better luck next time!");
+        alert(`Sorry, better luck next time! Final score was You: ${humanScore} to Computer: ${computerScore}`);
     }
 
     function playRound (humanChoice, computerChoice) {                      //plays one round
