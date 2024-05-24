@@ -26,6 +26,42 @@ function getHumanChoice () {        //get the Player's choice
 
 }
 
-let test = getHumanChoice();
-console.log(test);
+function playRound (humanChoice, computerChoice) {                      //plays one round
+    if (humanChoice === "rock" && computerChoice === "paper") {
+        alert("You lose! Paper beats Rock!");
+        computerScore++;
+    }
+    else if (humanChoice === "rock" && computerChoice === "scissors") {
+        alert("You win! Rock beats Scissors!");
+        humanScore++;
+    }  
+    else if (humanChoice === "paper" && computerChoice === "rock") {
+        alert("You win! Paper beats Rock!");
+        humanScore++;
+    }
+    else if (humanChoice === "paper" && computerChoice === "scissors") {
+        alert("You lose! Scissors beats Paper!");
+        computerScore++;
+    }
+    else if (humanChoice === "scissors" && computerChoice === "rock") {
+        alert("You lose! Rock beats Scissors!");
+        computerScore++;
+    }
+    else if (humanChoice === "scissors" && computerChoice === "paper") {
+        alert("You win! Scissors beat Paper!");
+        humanScore++;
+    }
+    else {
+        alert("Tie!");
+    }
+}
+
+let humanScore = 0;
+let computerScore = 0;
+
+let humanSelection = getHumanChoice();
+let computerSelection = getComputerChoice();
+console.log(humanSelection, computerSelection);
+playRound(humanSelection, computerSelection);
+
 
