@@ -14,64 +14,75 @@ function getComputerChoice () {
     }
 }
 
-function getHumanChoice () {        //get the Player's choice
-    let humanChoice = prompt("Choose Rock, Paper, or Scissors");
-    humanChoice = humanChoice.toLowerCase();  //convert choice to lower case for comparison
-    while (humanChoice !== "rock" && humanChoice !== "paper" && humanChoice !== "scissors") {  //only proceed when user makes valid input
-        humanChoice = prompt("Invalid input! Please enter Rock, Paper, or Scissors!");
-        humanChoice = humanChoice.toLowerCase();
+//listens for user to make their selection
+const playerChoice = document.querySelector(".play-area");
+
+playerChoice.addEventListener('click',(event) => {
+    let target = event.target;
+    switch(target.id) {
+        case 'rock':
+            playRound('rock');
+            break;
+        case 'paper':
+            playRound('paper');
+            break
+        case 'scissors':
+            playRound('scissors');
+            break
     }
-    return humanChoice;
-}
+});
 
 
+// plays round when user makes their selection, declares winner when score of 5 is reached
+function playRound (humanChoice) {
+            let computerChoice = getComputerChoice();
+                                  //plays one round
+            const humanScore = document.querySelector('#player-score');
+            let currentHumanScore = parseInt(humanScore.textContent);
+            const computerScore = document.querySelector('#computer-score');
+            let currentComputerScore = parseInt(computerScore.textContent);
 
-function playGame () {      //play Best of 5 (but ties don't count, so really play until someone has score of 3)
-    let humanScore = 0;
-    let computerScore = 0;
-    while (humanScore <3 && computerScore < 3) {
-        playRound(getHumanChoice(), getComputerChoice());
-    }
+            if (humanChoice === "rock" && computerChoice === "paper") {         //evaluates winner of round, increments score
+                alert("You lose! Paper beats Rock!");
+                currentComputerScore++;
+            }
+            else if (humanChoice === "rock" && computerChoice === "scissors") {
+                alert("You win! Rock beats Scissors!");
+                currentHumanScore++;
+            }  
+            else if (humanChoice === "paper" && computerChoice === "rock") {
+                alert("You win! Paper beats Rock!");
+                currentHumanScore++;
+            }
+            else if (humanChoice === "paper" && computerChoice === "scissors") {
+                alert("You lose! Scissors beats Paper!");
+                currentComputerScore++;
+            }
+            else if (humanChoice === "scissors" && computerChoice === "rock") {
+                alert("You lose! Rock beats Scissors!");
+                currentComputerScore++;
+            }
+            else if (humanChoice === "scissors" && computerChoice === "paper") {
+                alert("You win! Scissors beat Paper!");
+                currentHumanScore++;
+            }
+            else {
+                alert("Tie!");
+            }
 
-    if (humanScore === 3) {      //declare winner once someone has score of 3         
-        alert(`Congratulations! You are the winner!  Final score was You: ${humanScore} to Computer: ${computerScore}`);
-    }
-    else if (computerScore === 3) {
-        alert(`Sorry, better luck next time! Final score was You: ${humanScore} to Computer: ${computerScore}`);
-    }
+            humanScore.textContent = currentHumanScore;
+            computerScore.textContent = currentComputerScore;
 
-    function playRound (humanChoice, computerChoice) {                      //plays one round
-        if (humanChoice === "rock" && computerChoice === "paper") {         //evaluates winner of round, increments score
-            alert("You lose! Paper beats Rock!");
-            computerScore++;
+            if (currentHumanScore == 5) {
+                alert(`Congratulations! You are the winner!  Final score was You: ${currentHumanScore} to Computer: ${currentComputerScore}`);
+                humanScore.textContent = 0;
+                computerScore.textContent = 0;
+            }
+            else if (currentComputerScore == 5) {
+                alert(`Sorry, better luck next time! Final score was You: ${currentHumanScore} to Computer: ${currentComputerScore}`);
+                humanScore.textContent = 0;
+                computerScore.textContent = 0;
+            }
+
         }
-        else if (humanChoice === "rock" && computerChoice === "scissors") {
-            alert("You win! Rock beats Scissors!");
-            humanScore++;
-        }  
-        else if (humanChoice === "paper" && computerChoice === "rock") {
-            alert("You win! Paper beats Rock!");
-            humanScore++;
-        }
-        else if (humanChoice === "paper" && computerChoice === "scissors") {
-            alert("You lose! Scissors beats Paper!");
-            computerScore++;
-        }
-        else if (humanChoice === "scissors" && computerChoice === "rock") {
-            alert("You lose! Rock beats Scissors!");
-            computerScore++;
-        }
-        else if (humanChoice === "scissors" && computerChoice === "paper") {
-            alert("You win! Scissors beat Paper!");
-            humanScore++;
-        }
-        else {
-            alert("Tie!");
-        }
-    }
-}
-
-playGame();
-
-
 
